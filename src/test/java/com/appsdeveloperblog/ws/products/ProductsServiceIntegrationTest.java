@@ -1,5 +1,6 @@
 package com.appsdeveloperblog.ws.products;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -13,4 +14,9 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(properties="spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}")
 public class ProductsServiceIntegrationTest {
 
+	@Test
+	void testCreateProduct_whenGivenValidProductDetails_successfullySendsKafkaMessage() {
+		
+	}
+	
 }
