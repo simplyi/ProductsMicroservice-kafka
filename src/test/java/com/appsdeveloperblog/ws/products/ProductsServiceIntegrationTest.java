@@ -1,9 +1,13 @@
 package com.appsdeveloperblog.ws.products;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -83,6 +87,13 @@ public class ProductsServiceIntegrationTest {
 		
 		
 		// Assert
+		ConsumerRecord<String, ProductCreatedEvent> message = records.poll(3000, TimeUnit.MILLISECONDS);
+		assertNotNull(message);
+		assertNotNull(message.key());
+		ProductCreatedEvent productCreatedEvent = message.value();
+		assertEquals(createProductRestModel.getQuantity(), productCreatedEvent.getQuantity());
+		assertEquals(createProductRestModel.getTitle(), productCreatedEvent.getTitle());
+		assertEquals(createProductRestModel.getPrice(), productCreatedEvent.getPrice());
 	}
 	
 	
